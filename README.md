@@ -1,5 +1,6 @@
 The work proposes a novel fair PCA algorithm using convex optimization.
 
+Please note that our algorithm requires that the average value of matrix $A$ and $B$ be $0$.
 Here are the data sets we consider: <br>
 - Bank Marketing: https://archive.ics.uci.edu/dataset/222/bank+marketing. The size of the matrix is $M \in \mathbb{R}^{45211 \times 15}$, $A \in \mathbb{R}^{44401 \times 15}$, and $B \in \mathbb{R}^{816 \times 15}$. <br>
 - Crop mapping using fused optical-radar data set: https://archive.ics.uci.edu/dataset/525/crop+mapping+using+fused+optical+radar+data+set. The size of the matrix is $M \in \mathbb{R}^{325834 \times 173}$, $A \in \mathbb{R}^{39162 \times 173}$, and $B \in \mathbb{R}^{286672 \times 173}$..<be>
