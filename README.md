@@ -1,4 +1,4 @@
-The work proposes a novel PCA algorithm using convex optimization.
+The work proposes a novel fair PCA algorithm using convex optimization.
 
 Here are the data sets we consider: <br>
 - Bank Marketing: https://archive.ics.uci.edu/dataset/222/bank+marketing. The size of the matrix is $M \in \mathbb{R}^{45211 \times 15}$, $A \in \mathbb{R}^{44401 \times 15}$, and $B \in \mathbb{R}^{816 \times 15}$. <br>
