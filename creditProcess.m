@@ -31,7 +31,7 @@ data_nonsensitive = data(find(~normalized),:);
 data_sensitive = (data_sensitive - repmat(mean(data_sensitive),size(data_sensitive,1),1));
 data_nonsensitive = (data_nonsensitive - repmat(mean(data_nonsensitive),size(data_nonsensitive,1),1));
 
-M = data;
 A = data_sensitive;
 B = data_nonsensitive;
+M = [A;B];
 end
