@@ -7,6 +7,6 @@ Here are the data sets we consider: <br>
 - Default of credit card clients: https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients. The size of the matrix is $M \in \mathbb{R}^{30000 \times 23}$, $A \in \mathbb{R}^{10599 \times 23}$, and $B \in \mathbb{R}^{19401 \times 23}$. <br>
 - Labeled Faces in the Wild: https://vis-www.cs.umass.edu/lfw/. The size of the matrix is $M \in \mathbb{R}^{13232 \times 1764}$, $A \in \mathbb{R}^{2962 \times 1764}$, and $B \in \mathbb{R}^{10270 \times 1764}$. <be>
 
-If you would like to try our algorithm on a new data set, please note that our algorithm requires that the average value of matrix $A$ and $B$ be $0$.
+If you want to try our algorithm on a new data set, please remember that our algorithm requires that the average value of matrix $A$ and $B$ be $0$, and $M = [A;B]$.
 
 The data folder needed to run the code may be accessed through: https://drive.google.com/drive/u/1/folders/1xmdlEYPJDS7nwMQqbOoEuG3TCWLCBkUJ
