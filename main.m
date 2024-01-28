@@ -80,10 +80,10 @@ end
 d_count = 1:d_total;
 d_count = d_count';
 
-T = table(d_count,lossFair_XA,lossFair_XB,lossFair_XAoverXB)
-T = table(d_count,loss_XAsamadi,loss_XBsamadi,loss_XAoverXBsamadi)
-T = table(d_count,loss_XAoverXBpca,lossFair_XAoverXB,loss_XAoverXBsamadi)
-T = table(d_count,time_pca,time_fair,time_samadi)
+T = table(d_count,lossFair_XA,lossFair_XB,lossFair_XAoverXB);
+T = table(d_count,loss_XAsamadi,loss_XBsamadi,loss_XAoverXBsamadi);
+T = table(d_count,loss_XAoverXBpca,lossFair_XAoverXB,loss_XAoverXBsamadi);
+T = table(d_count,time_pca,time_fair,time_samadi);
 
 % plot the fairness figure
 figure
