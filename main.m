@@ -5,39 +5,39 @@ clc; close;clear; rng("default"); warning('off','all');warning;
 % [X, XA, XB] = bankProcess();
 % [X,XA,XB] = cropProcess();
 
-d_total = 10; 
+r_total = 10; 
 
-n = size(XA,2);
+d = size(XA,2);
 na = size(XA,1);
 nb = size(XB,1);
 
 % Vanilla loss
-loss_XA = zeros(d_total,1);
-loss_XB = zeros(d_total,1);
-loss_XAoverXBpca = zeros(d_total,1);
+loss_XA = zeros(r_total,1);
+loss_XB = zeros(r_total,1);
+loss_XAoverXBpca = zeros(r_total,1);
 
 % Fair loss using trace definition
-lossFair_XA = zeros(d_total,1);
-lossFair_XB = zeros(d_total,1);
-lossFair_XAoverXB = zeros(d_total,1);
+lossFair_XA = zeros(r_total,1);
+lossFair_XB = zeros(r_total,1);
+lossFair_XAoverXB = zeros(r_total,1);
 
 % parameters of the mw algorithm
 eta = 1;
 T = 20; 
 
 % Fair loss of Samadi's algorithm
-z_last = zeros(d_total, 1);
-z = zeros(d_total, 1);
+z_last = zeros(r_total, 1);
+z = zeros(r_total, 1);
 
-loss_XAsamadi = zeros(d_total,1);
-loss_XBsamadi = zeros(d_total,1);
-loss_XAoverXBsamadi = zeros(d_total,1);
+loss_XAsamadi = zeros(r_total,1);
+loss_XBsamadi = zeros(r_total,1);
+loss_XAoverXBsamadi = zeros(r_total,1);
 
-time_pca = zeros(d_total,1);
-time_fair = zeros(d_total,1);
-time_samadi = zeros(d_total,1);
+time_pca = zeros(r_total,1);
+time_fair = zeros(r_total,1);
+time_samadi = zeros(r_total,1);
 
-for ell=1:d_total
+for ell=1:r_total
 
     % Vanilla PCA 
     tic
@@ -77,17 +77,17 @@ for ell=1:d_total
     loss_XAoverXBsamadi(ell) = loss_XAsamadi(ell)/loss_XBsamadi(ell); 
 end
 
-d_count = 1:d_total;
-d_count = d_count';
+r_count = 1:r_total;
+r_count = r_count';
 
-T = table(d_count,lossFair_XA,lossFair_XB,lossFair_XAoverXB);
-T = table(d_count,loss_XAsamadi,loss_XBsamadi,loss_XAoverXBsamadi);
-T = table(d_count,loss_XAoverXBpca,lossFair_XAoverXB,loss_XAoverXBsamadi);
-T = table(d_count,time_pca,time_fair,time_samadi);
+T = table(r_count,lossFair_XA,lossFair_XB,lossFair_XAoverXB);
+T = table(r_count,loss_XAsamadi,loss_XBsamadi,loss_XAoverXBsamadi);
+T = table(r_count,loss_XAoverXBpca,lossFair_XAoverXB,loss_XAoverXBsamadi)
+T = table(r_count,time_pca,time_fair,time_samadi)
 
 % plot the fairness figure
 figure
-x = d_count;
+x = r_count;
 y1 = loss_XAoverXBpca;
 y2 = lossFair_XAoverXB;
 y3 = loss_XAoverXBsamadi;
@@ -116,7 +116,7 @@ title("Loss of algorithms")
 
 % plot the time figure
 figure
-x = d_count; 
+x = r_count; 
 y1 = time_pca; plot(x,y1,"b--|",'LineWidth',3);
 hold on
 y2 = time_fair; plot(x,y2,"r-s",'LineWidth',3);
