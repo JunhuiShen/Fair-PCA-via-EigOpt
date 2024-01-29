@@ -1,4 +1,4 @@
-function [V,Ha,Hb] = fpca(A, B, d, tol)
+function [U] = fpca(A, B, r,tol)
 % Fair PCA via eigenvalue optimization.
 % Input: 
 %   A, B are data matrices; 
@@ -12,18 +12,24 @@ function [V,Ha,Hb] = fpca(A, B, d, tol)
 n = size(A,2);
 na = size(A,1);
 nb = size(B,1);
-sigval_a=svd(A);
-sigval_b=svd(B);
-sa = norm(sigval_a(1:d))^2;
-sb = norm(sigval_b(1:d))^2;
-Ha = (sa/d*eye(n) - A'*A)/na;
-Hb = (sb/d*eye(n) - B'*B)/nb;
+
+[~,Sa,~] = svds(A,n,"largest",'Tolerance',tol);
+sigval_a = diag(Sa);
+
+[~,Sb,~] = svds(B,n,"largest",'Tolerance',tol);
+sigval_b = diag(Sb);
+
+sa = sum(sigval_a(1:r).^2);
+sb = sum(sigval_b(1:r).^2);
+
+Ha = (sa/r*eye(n) - A'*A)/na;
+Hb = (sb/r*eye(n) - B'*B)/nb;
 
 % Eigopt
 H = @(t) t*Ha+(1-t)*Hb;
-phiFun = @(t) -1*sum(eigs(H(t), d, 'smallestreal'));    % negative phi(t)
+phiFun = @(t) -1*sum(eigs(H(t), r, 'smallestreal'));    % negative phi(t)
 
 myOpt.TolX = tol;
 t0 = fminbnd(phiFun, 0, 1, myOpt);	% univariate optimization
-[V,~] = eigs(H(t0), d, 'smallestreal');
+[U,~] = eigs(H(t0), r, 'smallestreal');
 end
