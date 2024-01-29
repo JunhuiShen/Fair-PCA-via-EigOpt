@@ -1,9 +1,9 @@
 clc; close;clear; rng("default"); warning('off','all');warning;
 
-[X, XA, XB] = creditProcess();
+%[X, XA, XB] = creditProcess();
  % [X, XA, XB] = LFWProcess();
 % [X, XA, XB] = bankProcess();
-% [X,XA,XB] = cropProcess();
+[X,XA,XB] = cropProcess();
 
 r_total = 10; 
 
@@ -106,7 +106,7 @@ legend("FairPCA via convex optimization","FairPCA via LP")
 xlabel("Number of dimensions")
 ylabel("Loss")
 title("Loss of algorithms")
-%print -depsc newfigure1
+% print -depsc newfigure1
 
 % plot the time figure
 figure
@@ -121,8 +121,4 @@ legend("Vanilla PCA", "FairPCA via convex optimization","FairPCA via LP")
 xlabel("Number of dimensions")
 ylabel("Running time")
 title("Running time of algorithms")
-%print -depsc newfigure2
-legend("time PCA", "time Fair","time Samadi")
-xlabel("Number of dimensions")
-ylabel("Running time")
-title("Running time of algorithms")
+% print -depsc newfigure2
