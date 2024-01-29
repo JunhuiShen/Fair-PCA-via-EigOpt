@@ -9,7 +9,7 @@ Here are the data sets we consider: <br>
 
 Note that the mean value of matrix $X_{A}$ and $X_{B}$ are all set to $0$. <br>
 
-Here is the link to the code of Fair PCA algorithm, introduced in the paper "The Price of Fair PCA: One Extra Dimension" by Samadi S, Tantipongpipat U, Morgenstern J, Singh M, and Vempala S. 32nd Conference on Neural Information Processing Systems (NIPS 2018): https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file. Our function "fpca_samadi.m" is a mixture of the code above.
+Here is the link to the code of Fair PCA algorithm, introduced in the paper "The Price of Fair PCA: One Extra Dimension" by Samadi S, Tantipongpipat U, Morgenstern J, Singh M, and Vempala S. 32nd Conference on Neural Information Processing Systems (NIPS 2018): https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file. Our function "fpca_LP.m" is a mixture of the code above.
 
 
 The data folder needed to run the code may be accessed through: https://drive.google.com/drive/u/1/folders/1xmdlEYPJDS7nwMQqbOoEuG3TCWLCBkUJ
