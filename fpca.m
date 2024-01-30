@@ -1,35 +1,37 @@
-function [U] = fpca(A, B, r,tol)
+function [U] = fpca(XA, XB, r,tol)
 % Fair PCA via eigenvalue optimization.
-% Input: 
-%   A, B are data matrices; 
-%   d is reduced dimension
-%   tol is tolerance for eigopt (e.g., 1.0E-8)
-% Output:
-%   V is solution to Fair PCA.
-%
+% Input: XA, XB are data matrices; r is the reduced dimension
+% tol is tolerance
+% Output: V is solution to Fair PCA.
 
-% Data matrices
-n = size(A,2);
-na = size(A,1);
-nb = size(B,1);
+% Extract the dimension
+d = size(XA,2);
+na = size(XA,1);
+nb = size(XB,1);
 
-[~,Sa,~] = svds(A,n,"largest",'Tolerance',tol);
+% Compute singular value of XA and XB
+[~,Sa,~] = svds(XA,d,"largest",'Tolerance',tol);
 sigval_a = diag(Sa);
 
-[~,Sb,~] = svds(B,n,"largest",'Tolerance',tol);
+[~,Sb,~] = svds(XB,d,"largest",'Tolerance',tol);
 sigval_b = diag(Sb);
 
+% Compute SA and SB
 sa = sum(sigval_a(1:r).^2);
 sb = sum(sigval_b(1:r).^2);
 
-Ha = (sa/r*eye(n) - A'*A)/na;
-Hb = (sb/r*eye(n) - B'*B)/nb;
+% Form HA and HB
+Ha = (sa/r*eye(d) - XA'*XA)/na;
+Hb = (sb/r*eye(d) - XB'*XB)/nb;
 
-% Eigopt
+% Define H(t) and -phi(t)
 H = @(t) t*Ha+(1-t)*Hb;
-phiFun = @(t) -1*sum(eigs(H(t), r, 'smallestreal'));    % negative phi(t)
+phiFun = @(t) -1 * sum(eigs(H(t), r, 'smallestreal')); % negative phi
 
+% Find t0 that minimizes -phi(t)
 myOpt.TolX = tol;
-t0 = fminbnd(phiFun, 0, 1, myOpt);	% univariate optimization
+t0 = fminbnd(phiFun, 0, 1, myOpt);
+
+% Return U where U contains the first r eigenvectors of H(t0)
 [U,~] = eigs(H(t0), r, 'smallestreal');
 end
