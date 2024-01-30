@@ -22,9 +22,10 @@ lossFair_XB = zeros(r_total,1);
 lossFair_max = zeros(r_total,1);
 lossFair_XAoverXB = zeros(r_total,1);
 
-% parameters of the mw algorithm
+% Parameters of the mw algorithm
 eta = 1;
 T = 20; 
+
 z_last = zeros(r_total, 1);
 z = zeros(r_total, 1);
 
@@ -58,7 +59,7 @@ for ell=1:r_total
     U = fpca(XA, XB, ell, 10^(-8));
     time_FairConvex(ell) = toc;
 
-    % the average loss on A and B of Fair PCA via convex optimization
+    % The average loss on A and B of Fair PCA via convex optimization
     approx_XA = XA * (U * U');
     approx_XB = XB * (U * U');
     lossFair_XA(ell) = loss(XA,approx_XA,ell);
@@ -75,7 +76,7 @@ for ell=1:r_total
     approxFair_XA_LP = XA * P_LP;
     approxFair_XB_LP = XB * P_LP;
 
-    % the average loss on A and B of Fair PCA via LP
+    % The average loss on A and B of Fair PCA via LP
     loss_XA_LP(ell) = loss(XA,approxFair_XA_LP,ell);
     loss_XB_LP(ell) = loss(XB,approxFair_XB_LP,ell);
 
@@ -92,7 +93,7 @@ T = table(r_count,lossFair_max,loss_LP_max);
 T = table(r_count,loss_XAoverXBpca,lossFair_XAoverXB,loss_XAoverXB_LP);
 T = table(r_count,time_pca,time_FairConvex,time_FairLP);
 
-% plot the loss ratio figure
+% Plot the loss ratio figure
 figure
 x = r_count;
 y1 = lossFair_XAoverXB;
@@ -115,7 +116,7 @@ ylabel("Loss ratio")
 title("Loss Ratio")
 % print -depsc newfigure1
 
-% plot the fairness figure
+% Plot the fairness figure
 figure
 x = r_count;
 y1 = lossFair_max;
@@ -138,7 +139,7 @@ ylabel("Fairness measure")
 title("Fairness measure")
 % print -depsc newfigure2
 
-% plot the time figure
+% Plot the time figure
 figure
 x = r_count; 
 y1 = time_pca; plot(x,y1,"b--|",'LineWidth',3);
@@ -150,5 +151,5 @@ hold off
 legend("Vanilla PCA", "FairPCA via convex optimization","FairPCA via LP")
 xlabel("Number of dimensions")
 ylabel("Running time")
-title("Running time of algorithms")
+title("Running time")
 % print -depsc newfigure3
