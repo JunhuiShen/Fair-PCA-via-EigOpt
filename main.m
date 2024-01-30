@@ -22,7 +22,7 @@ lossFair_XB = zeros(r_total,1);
 lossFair_max = zeros(r_total,1);
 lossFair_XAoverXB = zeros(r_total,1);
 
-% Parameters of the mw algorithm
+% Parameters of Fair PCA via LP
 eta = 1;
 T = 20; 
 
