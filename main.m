@@ -1,12 +1,15 @@
 clc; close;clear; rng("default"); warning('off','all');warning;
 
-% [X, XA, XB] = creditProcess();
+% Data set
+[X, XA, XB] = creditProcess();
  % [X, XA, XB] = LFWProcess();
 % [X, XA, XB] = bankProcess();
-[X,XA,XB] = cropProcess();
+% [X,XA,XB] = cropProcess();
 
+% Reduced dimension
 r_total = 10; 
 
+% Extract the dimension
 d = size(XA,2);
 na = size(XA,1);
 nb = size(XB,1);
@@ -16,26 +19,28 @@ loss_XA = zeros(r_total,1);
 loss_XB = zeros(r_total,1);
 loss_XAoverXBpca = zeros(r_total,1);
 
-% Fair loss of Fair PCA via convex optimization
+% Loss of Fair PCA via Convex Optimization
 lossFair_XA = zeros(r_total,1);
 lossFair_XB = zeros(r_total,1);
 lossFair_max = zeros(r_total,1);
 lossFair_XAoverXB = zeros(r_total,1);
 
-% Parameters of Fair PCA via LP
-eta = 1;
-T = 20; 
+% Parameter of Fair PCA via Convex Optimization
+tol = 10^(-8);
 
-z_last = zeros(r_total, 1);
-z = zeros(r_total, 1);
-
-% Fair loss of Fair PCA via convex optimization
+% Loss of Fair PCA via LP
 loss_XA_LP = zeros(r_total,1);
 loss_XB_LP = zeros(r_total,1);
 loss_LP_max = zeros(r_total,1);
 loss_XAoverXB_LP = zeros(r_total,1);
 
-% Time
+% Parameters of Fair PCA via LP
+eta = 1;
+T = 20; 
+z_last = zeros(r_total, 1);
+z = zeros(r_total, 1);
+
+% Efficiency
 time_pca = zeros(r_total,1);
 time_FairConvex = zeros(r_total,1);
 time_FairLP = zeros(r_total,1);
@@ -47,24 +52,27 @@ for ell=1:r_total
     coeff = pca(X,"NumComponents",ell);
     time_pca(ell) = toc;
     
-    % Vanilla PCA's average loss on A and B
+    % Projection of Vanilla PCA
     approx_XApca = XA * (coeff * coeff');
     approx_XBpca = XB * (coeff * coeff');
+
+    % The average loss on A and B of Vanilla PCA
     loss_XA(ell) = loss(XA,approx_XApca,ell);
     loss_XB(ell) = loss(XB,approx_XBpca,ell);
     loss_XAoverXBpca(ell) = loss_XA(ell)/loss_XB(ell);
 
-    % Fair PCA via convex optimization
+    % Fair PCA via Convex Optimization
     tic
-    U = fpca(XA, XB, ell, 10^(-8));
+    U = fpca(XA, XB, ell,tol);
     time_FairConvex(ell) = toc;
 
-    % The average loss on A and B of Fair PCA via convex optimization
+    % Projection of Fair PCA via Convex Optimization
     approx_XA = XA * (U * U');
     approx_XB = XB * (U * U');
+
+    % The average loss on A and B of Fair PCA via Convex Optimization
     lossFair_XA(ell) = loss(XA,approx_XA,ell);
     lossFair_XB(ell) = loss(XB,approx_XB,ell);
-
     lossFair_max(ell) = max(lossFair_XA(ell),lossFair_XB(ell));
     lossFair_XAoverXB(ell) = lossFair_XA(ell)/lossFair_XB(ell);
 
@@ -72,21 +80,23 @@ for ell=1:r_total
     tic
     P_LP = fpca_LP(XA,XB,ell,eta,T);
     time_FairLP(ell) = toc;
-
+    
+    % Projection of Fair PCA via LP
     approxFair_XA_LP = XA * P_LP;
     approxFair_XB_LP = XB * P_LP;
 
     % The average loss on A and B of Fair PCA via LP
     loss_XA_LP(ell) = loss(XA,approxFair_XA_LP,ell);
     loss_XB_LP(ell) = loss(XB,approxFair_XB_LP,ell);
-
     loss_LP_max(ell) = max(loss_XA_LP(ell),loss_XB_LP(ell));
     loss_XAoverXB_LP(ell) = loss_XA_LP(ell)/loss_XB_LP(ell); 
 end
 
+% Make a list for each reduced dimension
 r_count = 1:r_total;
 r_count = r_count';
 
+% Table of different comparison result
 T = table(r_count,lossFair_XA,lossFair_XB,lossFair_XAoverXB);
 T = table(r_count,loss_XA_LP,loss_XB_LP,loss_XAoverXB_LP);
 T = table(r_count,lossFair_max,loss_LP_max);
@@ -116,7 +126,7 @@ ylabel("Loss ratio")
 title("Loss Ratio")
 % print -depsc newfigure1
 
-% Plot the fairness figure
+% Plot the fairness measure figure
 figure
 x = r_count;
 y1 = lossFair_max;
@@ -139,7 +149,7 @@ ylabel("Fairness measure")
 title("Fairness measure")
 % print -depsc newfigure2
 
-% Plot the time figure
+% Plot the efficiency figure
 figure
 x = r_count; 
 y1 = time_pca; plot(x,y1,"b--|",'LineWidth',3);
