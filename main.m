@@ -86,11 +86,11 @@ end
 r_count = 1:r_total;
 r_count = r_count';
 
-T = table(r_count,lossFair_XA,lossFair_XB,lossFair_XAoverXB)
-T = table(r_count,loss_XA_LP,loss_XB_LP,loss_XAoverXB_LP)
-T = table(r_count,lossFair_max,loss_LP_max)
-T = table(r_count,loss_XAoverXBpca,lossFair_XAoverXB,loss_XAoverXB_LP)
-T = table(r_count,time_pca,time_FairConvex,time_FairLP)
+T = table(r_count,lossFair_XA,lossFair_XB,lossFair_XAoverXB);
+T = table(r_count,loss_XA_LP,loss_XB_LP,loss_XAoverXB_LP);
+T = table(r_count,lossFair_max,loss_LP_max);
+T = table(r_count,loss_XAoverXBpca,lossFair_XAoverXB,loss_XAoverXB_LP);
+T = table(r_count,time_pca,time_FairConvex,time_FairLP);
 
 % plot the loss ratio figure
 figure
