@@ -45,51 +45,51 @@ time_pca = zeros(r_total,1);
 time_FairConvex = zeros(r_total,1);
 time_FairLP = zeros(r_total,1);
 
-for ell=1:r_total
+for r=1:r_total
 
     % Vanilla PCA 
     tic
-    coeff = pca(X,"NumComponents",ell);
-    time_pca(ell) = toc;
+    coeff = pca(X,"NumComponents",r);
+    time_pca(r) = toc;
     
     % Projection of Vanilla PCA
     approx_XApca = XA * (coeff * coeff');
     approx_XBpca = XB * (coeff * coeff');
 
     % The average loss on A and B of Vanilla PCA
-    loss_XA(ell) = loss(XA,approx_XApca,ell);
-    loss_XB(ell) = loss(XB,approx_XBpca,ell);
-    loss_XAoverXBpca(ell) = loss_XA(ell)/loss_XB(ell);
+    loss_XA(r) = loss(XA,approx_XApca,r);
+    loss_XB(r) = loss(XB,approx_XBpca,r);
+    loss_XAoverXBpca(r) = loss_XA(r)/loss_XB(r);
 
     % Fair PCA via Convex Optimization
     tic
-    U = fpca(XA, XB, ell,tol);
-    time_FairConvex(ell) = toc;
+    U = fpca(XA, XB, r,tol);
+    time_FairConvex(r) = toc;
 
     % Projection of Fair PCA via Convex Optimization
     approx_XA = XA * (U * U');
     approx_XB = XB * (U * U');
 
     % The average loss on A and B of Fair PCA via Convex Optimization
-    lossFair_XA(ell) = loss(XA,approx_XA,ell);
-    lossFair_XB(ell) = loss(XB,approx_XB,ell);
-    lossFair_max(ell) = max(lossFair_XA(ell),lossFair_XB(ell));
-    lossFair_XAoverXB(ell) = lossFair_XA(ell)/lossFair_XB(ell);
+    lossFair_XA(r) = loss(XA,approx_XA,r);
+    lossFair_XB(r) = loss(XB,approx_XB,r);
+    lossFair_max(r) = max(lossFair_XA(r),lossFair_XB(r));
+    lossFair_XAoverXB(r) = lossFair_XA(r)/lossFair_XB(r);
 
     % Fair PCA via LP
     tic
-    P_LP = fpca_LP(XA,XB,ell,eta,T);
-    time_FairLP(ell) = toc;
+    P_LP = fpca_LP(XA,XB,r,eta,T);
+    time_FairLP(r) = toc;
     
     % Projection of Fair PCA via LP
     approxFair_XA_LP = XA * P_LP;
     approxFair_XB_LP = XB * P_LP;
 
     % The average loss on A and B of Fair PCA via LP
-    loss_XA_LP(ell) = loss(XA,approxFair_XA_LP,ell);
-    loss_XB_LP(ell) = loss(XB,approxFair_XB_LP,ell);
-    loss_LP_max(ell) = max(loss_XA_LP(ell),loss_XB_LP(ell));
-    loss_XAoverXB_LP(ell) = loss_XA_LP(ell)/loss_XB_LP(ell); 
+    loss_XA_LP(r) = loss(XA,approxFair_XA_LP,r);
+    loss_XB_LP(r) = loss(XB,approxFair_XB_LP,r);
+    loss_LP_max(r) = max(loss_XA_LP(r),loss_XB_LP(r));
+    loss_XAoverXB_LP(r) = loss_XA_LP(r)/loss_XB_LP(r); 
 end
 
 % Make a list for each reduced dimension
