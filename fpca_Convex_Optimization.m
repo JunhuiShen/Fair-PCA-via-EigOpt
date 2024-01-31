@@ -1,15 +1,17 @@
 function [U] = fpca_Convex_Optimization(XA, XB, r,tol)
 % Fair PCA via convex optimization.
-% Input: XA, XB are data matrices; r is the reduced dimension
+% Input: XA and XB are data matrices; r is the reduced dimension
 % tol is tolerance
-% Output: V is solution to Fair PCA.
+% Output: V is the solution to Fair PCA.
 
 % Extract the dimension
 d = size(XA,2);
 na = size(XA,1);
 nb = size(XB,1);
 
-% Compute singular value of XA and XB
+% Compute the singular value of XA and XB
+% sigval_a = svd(XA);
+% sigval_b = svd(XB);
 [~,Sa,~] = svds(XA,d,"largest",'Tolerance',tol);
 sigval_a = diag(Sa);
 
