@@ -10,8 +10,6 @@ na = size(XA,1);
 nb = size(XB,1);
 
 % Compute the singular value of XA and XB
-% sigval_a = svd(XA);
-% sigval_b = svd(XB);
 [~,Sa,~] = svds(XA,d,"largest",'Tolerance',tol);
 sigval_a = diag(Sa);
 
