@@ -26,7 +26,7 @@ Hb = (sb/r*eye(d) - XB'*XB)/nb;
 
 % Define H(t) and -phi(t)
 H = @(t) t*Ha+(1-t)*Hb;
-phiFun = @(t) -1 * sum(eigs(H(t), r, 'smallestreal')); % negative phi
+phiFun = @(t) -1 * sum(eigs(H(t), r, 'smallestreal')); % -phi（t）
 
 % Find t0 that minimizes -phi(t)
 myOpt.TolX = tol;
