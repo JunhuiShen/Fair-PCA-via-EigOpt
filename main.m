@@ -6,7 +6,7 @@ clc; close;clear; rng("default"); warning('off','all');warning;
 % [X, XA, XB] = bankProcess();
 % [X,XA,XB] = cropProcess();
 
-% Reduced dimension
+% Total reduced dimension
 r_total = 10; 
 
 % Extract the dimension
