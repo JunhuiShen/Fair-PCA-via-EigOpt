@@ -1,9 +1,9 @@
 clc; close;clear; rng("default"); warning('off','all');warning;
 
 % Data set
-[X, XA, XB] = creditProcess();
- % [X, XA, XB] = LFWProcess();
-% [X, XA, XB] = bankProcess();
+[X, XA, XB] = bankProcess();
+% [X, XA, XB] = creditProcess();
+% [X, XA, XB] = LFWProcess();
 % [X,XA,XB] = cropProcess();
 
 % Total reduced dimension
@@ -19,13 +19,13 @@ loss_XA = zeros(r_total,1);
 loss_XB = zeros(r_total,1);
 loss_XAoverXBpca = zeros(r_total,1);
 
-% Loss of Fair PCA via Convex Optimization
+% Loss of Fair PCA via eigenvalue Optimization
 lossFair_XA = zeros(r_total,1);
 lossFair_XB = zeros(r_total,1);
 lossFair_max = zeros(r_total,1);
 lossFair_XAoverXB = zeros(r_total,1);
 
-% Parameter of Fair PCA via Convex Optimization
+% Parameter of Fair PCA via eigenvalue Optimization
 tol = 10^(-8);
 
 % Loss of Fair PCA via LP
@@ -61,16 +61,16 @@ for r=1:r_total
     loss_XB(r) = loss(XB,approx_XBpca,r);
     loss_XAoverXBpca(r) = loss_XA(r)/loss_XB(r);
 
-    % Fair PCA via Convex Optimization
+    % Fair PCA via eigenvalue Optimization
     tic
-    U = fpca_Convex_Optimization(XA, XB, r,tol);
+    U = fpca_Eigenvalue_Optimization(XA, XB, r,tol);
     time_FairConvex(r) = toc;
 
-    % Projection of Fair PCA via Convex Optimization
+    % Projection of Fair PCA via eigenvalue Optimization
     approx_XA = XA * (U * U');
     approx_XB = XB * (U * U');
 
-    % The average loss on A and B of Fair PCA via Convex Optimization
+    % The average loss on A and B of Fair PCA via eigenvalue Optimization
     lossFair_XA(r) = loss(XA,approx_XA,r);
     lossFair_XB(r) = loss(XB,approx_XB,r);
     lossFair_max(r) = max(lossFair_XA(r),lossFair_XB(r));
@@ -120,7 +120,7 @@ plot(x,y2,'-go',...
     'MarkerEdgeColor','c',...
     'MarkerFaceColor',[0.5,0.5,0.5])
 hold off
-legend("FairPCA via convex optimization","FairPCA via LP")
+legend("FairPCA via eigenvalue optimization","FairPCA via LP")
 xlabel("Number of reduced dimensions")
 ylabel("Loss ratio")
 title("Loss Ratio")
@@ -143,7 +143,7 @@ plot(x,y2,'-go',...
     'MarkerEdgeColor','c',...
     'MarkerFaceColor',[0.5,0.5,0.5])
 hold off
-legend("FairPCA via convex optimization","FairPCA via LP")
+legend("FairPCA via eigenvalue optimization","FairPCA via LP")
 xlabel("Number of reduced dimensions")
 ylabel("Fairness measure")
 title("Fairness measure")
@@ -158,7 +158,7 @@ y2 = time_FairConvex; plot(x,y2,"r-s",'LineWidth',3);
 hold on
 y3 = time_FairLP; plot(x,y3,"g-o",'LineWidth',3);
 hold off
-legend("Vanilla PCA", "FairPCA via convex optimization","FairPCA via LP")
+legend("Vanilla PCA", "FPCA via eigenvalue optimization","FPCA via LP")
 xlabel("Number of reduced dimensions")
 ylabel("Running time")
 title("Running time")
