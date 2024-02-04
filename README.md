@@ -1,4 +1,4 @@
-The work proposes a novel fair PCA algorithm using convex optimization.
+The work proposes a novel fair PCA algorithm using eigenvalue optimization. 
 
 
 Here are the data sets we consider: <br>
