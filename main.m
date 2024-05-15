@@ -14,25 +14,25 @@ d = size(A,2);
 na = size(A,1);
 nb = size(B,1);
 
-% Vanilla PCA loss
-loss_A = zeros(r_total,1);
-loss_B = zeros(r_total,1);
-loss_AoverBpca = zeros(r_total,1);
+% Vanilla PCA reconstruction rloss
+rloss_A = zeros(r_total,1);
+rloss_B = zeros(r_total,1);
+rloss_AoverBpca = zeros(r_total,1);
 
-% Loss of Fair PCA via eigenvalue Optimization
-lossFair_A = zeros(r_total,1);
-lossFair_B = zeros(r_total,1);
-lossFair_max = zeros(r_total,1);
-lossFair_AoverB = zeros(r_total,1);
+% Reconstruction loss of Fair PCA via eigenvalue Optimization
+rlossFair_A = zeros(r_total,1);
+rlossFair_B = zeros(r_total,1);
+rlossFair_max = zeros(r_total,1);
+rlossFair_AoverB = zeros(r_total,1);
 
 % Parameter of Fair PCA via eigenvalue Optimization
 tol = 10^(-8);
 
-% Loss of Fair PCA via LP
-loss_A_LP = zeros(r_total,1);
-loss_B_LP = zeros(r_total,1);
-loss_LP_max = zeros(r_total,1);
-loss_AoverB_LP = zeros(r_total,1);
+% Reconstruction loss of Fair PCA via LP
+rloss_A_LP = zeros(r_total,1);
+rloss_B_LP = zeros(r_total,1);
+rloss_LP_max = zeros(r_total,1);
+rloss_AoverB_LP = zeros(r_total,1);
 
 % Parameters of Fair PCA via LP
 eta = 1;
@@ -57,11 +57,11 @@ for r=1:r_total
     approx_Apca = A * (coeff * coeff');
     approx_Bpca = B * (coeff * coeff');
 
-    % The average loss on A and B of Vanilla PCA
-    loss_A(r) = loss(A,approx_Apca,r);
-    loss_B(r) = loss(B,approx_Bpca,r);
-    losspca_max(r) = max(loss_A(r),loss_B(r));
-    loss_AoverBpca(r) = loss_A(r)/loss_B(r);
+    % The average rloss on A and B of Vanilla PCA
+    rloss_A(r) = rloss(A,approx_Apca,r);
+    rloss_B(r) = rloss(B,approx_Bpca,r);
+    rlosspca_max(r) = max(rloss_A(r),rloss_B(r));
+    rloss_AoverBpca(r) = rloss_A(r)/rloss_B(r);
 
     % Fair PCA via eigenvalue Optimization
     tic
@@ -72,11 +72,11 @@ for r=1:r_total
     approx_A = A * (U * U');
     approx_B = B * (U * U');
 
-    % The average loss on A and B of Fair PCA via eigenvalue Optimization
-    lossFair_A(r) = loss(A,approx_A,r);
-    lossFair_B(r) = loss(B,approx_B,r);
-    lossFair_max(r) = max(lossFair_A(r),lossFair_B(r));
-    lossFair_AoverB(r) = lossFair_A(r)/lossFair_B(r);
+    % The average reconstruction rloss on A and B of Fair PCA via eigenvalue Optimization
+    rlossFair_A(r) = rloss(A,approx_A,r);
+    rlossFair_B(r) = rloss(B,approx_B,r);
+    rlossFair_max(r) = max(rlossFair_A(r),rlossFair_B(r));
+    rlossFair_AoverB(r) = rlossFair_A(r)/rlossFair_B(r);
 
     % Fair PCA via LP
     tic
@@ -87,11 +87,11 @@ for r=1:r_total
     approxFair_A_LP = A * P_LP;
     approxFair_B_LP = B * P_LP;
 
-    % The average loss on A and B of Fair PCA via LP
-    loss_A_LP(r) = loss(A,approxFair_A_LP,r);
-    loss_B_LP(r) = loss(B,approxFair_B_LP,r);
-    loss_LP_max(r) = max(loss_A_LP(r),loss_B_LP(r));
-    loss_AoverB_LP(r) = loss_A_LP(r)/loss_B_LP(r); 
+    % The average reconstruction rloss on A and B of Fair PCA via LP
+    rloss_A_LP(r) = rloss(A,approxFair_A_LP,r);
+    rloss_B_LP(r) = rloss(B,approxFair_B_LP,r);
+    rloss_LP_max(r) = max(rloss_A_LP(r),rloss_B_LP(r));
+    rloss_AoverB_LP(r) = rloss_A_LP(r)/rloss_B_LP(r); 
 
     time_ratio(r) = time_FairLP(r)/time_Fair(r);
 end
@@ -101,16 +101,16 @@ r_count = 1:r_total;
 r_count = r_count';
 
 % Table of different comparison result
-% T = table(r_count,lossFair_A,lossFair_B,lossFair_AoverB);
-% T = table(r_count,loss_A_LP,loss_B_LP,loss_AoverB_LP);
-% T = table(r_count,lossFair_max,loss_LP_max);
-% T = table(r_count,loss_AoverBpca,lossFair_AoverB,loss_AoverB_LP);
+% T = table(r_count,rlossFair_A,rlossFair_B,rlossFair_AoverB);
+% T = table(r_count,rloss_A_LP,rloss_B_LP,rloss_AoverB_LP);
+% T = table(r_count,rlossFair_max,rloss_LP_max);
+% T = table(r_count,rloss_AoverBpca,rlossFair_AoverB,rloss_AoverB_LP);
 
-% Plot the reconstruction loss ratio figure
+% Plot the reconstruction rloss ratio figure
 figure
 x = r_count;
-y1 = lossFair_AoverB;
-y2 = loss_AoverB_LP;
+y1 = rlossFair_AoverB;
+y2 = rloss_AoverB_LP;
 plot(x,y1,'-rs',...
     'LineWidth',2,...
     'MarkerSize',10,...
@@ -132,8 +132,8 @@ title("Reconstruction loss Ratio")
 % Plot the objective value figure
 figure
 x = r_count;
-y1 = lossFair_max;
-y2 = losspca_max;
+y1 = rlossFair_max;
+y2 = rlosspca_max;
 plot(x,y1,'-rs',...
     'LineWidth',2,...
     'MarkerSize',10,...
