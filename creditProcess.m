@@ -1,3 +1,4 @@
+# Default of Credit Card Clients dataset
 function [M,A,B] = creditProcess()
 
 data = readtable('default_degree.csv');
