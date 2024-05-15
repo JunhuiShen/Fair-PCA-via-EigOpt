@@ -1,4 +1,4 @@
-# Labed Face in the Wild
+# Labed Face in the Wild dataset
 function [M, A, B] = LFWProcess()
 
 addpath images
