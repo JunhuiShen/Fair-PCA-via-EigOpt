@@ -20,7 +20,7 @@ Note: The mean value of every matrix $A$ and $B$ is set to $0$.
 
 ## Reference Paper
 
-The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, `fpca_LP.m`, is adapted from their code.
+The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, [`fpca_LP.m`](./fpca_LP.m), is adapted from their code.
 
 You can access the code repository [here](https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file).
 
