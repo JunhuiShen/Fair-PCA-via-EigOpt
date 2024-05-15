@@ -1,3 +1,4 @@
+# Bank Marketing dataset
 function [M, A, B] = bankProcess()
 
 addpath data/bank
