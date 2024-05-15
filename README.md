@@ -5,7 +5,7 @@ The work proposes a novel fair PCA algorithm using eigenvalue optimization:
 - The algorithm, **Fair PCA via Eigenvalue Optimization**, is implemented in [`fpca_Eigenvalue_Optimization.m`](./fpca_Eigenvalue_Optimization.m).
 - Main function: [`main.m`](./main.m).
 - Reconstruction loss function: [`loss.m`](./loss.m).
-- Example of synthetic data: [`synthetic_data.m`](./synthetic_data.m) and [`synthetic_data2.m`](./synthetic_data2.m).
+- Examples of synthetic data: [`synthetic_data.m`](./synthetic_data.m) and [`synthetic_data2.m`](./synthetic_data2.m).
 
 ## Datasets
 
@@ -18,7 +18,7 @@ Here are the datasets we consider:
 
 Note: The mean value of every matrix $A$ and $B$ is set to $0$.
 
-## Code and Paper
+## Reference Paper
 
 The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, `fpca_LP.m`, is adapted from their code.
 
