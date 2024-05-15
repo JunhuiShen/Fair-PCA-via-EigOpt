@@ -1,4 +1,5 @@
-The work proposes a novel fair PCA algorithm using eigenvalue optimization. 
+The work proposes a novel fair PCA algorithm using eigenvalue optimization: <br>
+- The algorithm Fair PCA via Eigenvalue Optimization is contained in [fpca_Eigenvalue_Optimization.m](./fpca_Eigenvalue_Optimization.m)
 
 
 Here are the data sets we consider: <br>
