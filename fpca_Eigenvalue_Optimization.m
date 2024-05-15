@@ -1,21 +1,21 @@
-function [U] = fpca_Eigenvalue_Optimization(XA, XB, r,tol)
+function [U] = fpca_Eigenvalue_Optimization(A, B, r,tol)
 % Fair PCA via convex optimization.
-% Input: XA and XB are data matrices; r is the reduced dimension
+% Input: A and B are data matrices; r is the reduced dimension
 % tol is tolerance
 % Output: V is the solution to Fair PCA.
 
 % Extract the dimension
-d = size(XA,2);
-na = size(XA,1);
-nb = size(XB,1);
+d = size(A,2);
+na = size(A,1);
+nb = size(B,1);
 
-% Compute singular value of XA and XB
-% sigval_a = svd(XA);
-% sigval_b = svd(XB);
-[~,Sa,~] = svds(XA,d,"largest",'Tolerance',tol);
+% Compute singular value of A and B
+% sigval_a = svd(A);
+% sigval_b = svd(B);
+[~,Sa,~] = svds(A,d,"largest",'Tolerance',tol);
 sigval_a = diag(Sa);
 
-[~,Sb,~] = svds(XB,d,"largest",'Tolerance',tol);
+[~,Sb,~] = svds(B,d,"largest",'Tolerance',tol);
 sigval_b = diag(Sb);
 
 % Compute SA and SB
@@ -23,8 +23,8 @@ sa = sum(sigval_a(1:r).^2);
 sb = sum(sigval_b(1:r).^2);
 
 % Form HA and HB
-Ha = (sa/r*eye(d) - XA'*XA)/na;
-Hb = (sb/r*eye(d) - XB'*XB)/nb;
+Ha = (sa/r*eye(d) - A'*A)/na;
+Hb = (sb/r*eye(d) - B'*B)/nb;
 
 % Define H(t) and -phi(t)
 H = @(t) t*Ha+(1-t)*Hb;
