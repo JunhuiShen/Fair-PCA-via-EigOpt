@@ -1,4 +1,4 @@
-## Fair PCA Algorithm
+## Fair PCA via Eigenvalue Optimization
 
 The work proposes a novel fair PCA algorithm using eigenvalue optimization:
 
