@@ -1,10 +1,10 @@
 clc; close;clear; rng("default"); warning('off','all');warning;format short
 
 % Data set
-% [M, A, B] = bank_marketing();
+[M, A, B] = bank_marketing();
 % [M, A, B] = default_credit();
 % [M,A,B] = crop_mapping();
-[M, A, B] = LFW();
+% [M, A, B] = LFW();
 
 % Total reduced dimension
 r_total = 10; 
