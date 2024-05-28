@@ -1,6 +1,8 @@
-## Fair PCA via Eigenvalue Optimization
+# Fair PCA via Eigenvalue Optimization
 
-The work proposes a novel fair PCA algorithm using eigenvalue optimization:
+This section describes the implementation of a novel fair PCA algorithm using eigenvalue optimization.
+
+## Algorithm Implementation
 
 - The algorithm, **Fair PCA via Eigenvalue Optimization**, is implemented in [`fpca_Eigenvalue_Optimization.m`](./fpca_Eigenvalue_Optimization.m).
 - Main function: [`main.m`](./main.m).
@@ -11,10 +13,22 @@ The work proposes a novel fair PCA algorithm using eigenvalue optimization:
 
 Here are the datasets we consider:
 
-- [Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing): Matrix sizes are $M \in \mathbb{R}^{45211 \times 16}$, $A \in \mathbb{R}^{44401 \times 16}$, and $B \in \mathbb{R}^{810 \times 16}$.
-- [Crop Mapping](https://archive.ics.uci.edu/dataset/525/crop+mapping+using+fused+optical+radar+data+set): Matrix sizes are $M \in \mathbb{R}^{325834 \times 173}$, $A \in \mathbb{R}^{39162 \times 173}$, and $B \in \mathbb{R}^{286672 \times 173}$.
-- [Default of Credit Card Clients](https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients): Matrix sizes are $M \in \mathbb{R}^{30000 \times 23}$, $A \in \mathbb{R}^{10599 \times 23}$, and $B \in \mathbb{R}^{19401 \times 23}$.
-- [Labeled Faces in the Wild](https://vis-www.cs.umass.edu/lfw/): Matrix sizes are $M \in \mathbb{R}^{13232 \times 1764}$, $A \in \mathbb{R}^{2962 \times 1764}$, and $B \in \mathbb{R}^{10270 \times 1764}$.
+- [Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing): 
+  - $M \in \mathbb{R}^{45211 \times 16}$
+  - $A \in \mathbb{R}^{44401 \times 16}$
+  - $B \in \mathbb{R}^{810 \times 16}$
+- [Crop Mapping](https://archive.ics.uci.edu/dataset/525/crop+mapping+using+fused+optical+radar+data+set):
+  - $M \in \mathbb{R}^{325834 \times 173}$
+  - $A \in \mathbb{R}^{39162 \times 173}$
+  - $B \in \mathbb{R}^{286672 \times 173}$
+- [Default of Credit Card Clients](https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients):
+  - $M \in \mathbb{R}^{30000 \times 23}$
+  - $A \in \mathbb{R}^{10599 \times 23}$
+  - $B \in \mathbb{R}^{19401 \times 23}$
+- [Labeled Faces in the Wild](https://vis-www.cs.umass.edu/lfw/):
+  - $M \in \mathbb{R}^{13232 \times 1764}$
+  - $A \in \mathbb{R}^{2962 \times 1764}$
+  - $B \in \mathbb{R}^{10270 \times 1764}$
 
 Note: The mean value of every matrix $A$ and $B$ is set to $0$.
 
