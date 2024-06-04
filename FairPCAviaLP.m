@@ -1,4 +1,4 @@
-function P_smart = fpca_LP(A,B,d,eta,T)
+function P_smart = FairPCAviaLP(A,B,d,eta,T)
     [P_fair,z,P_last,z_last] = mw(A, B, d,eta,T);
     
     if z < z_last
