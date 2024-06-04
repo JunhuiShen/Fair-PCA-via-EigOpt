@@ -6,7 +6,7 @@ This section describes the implementation of a novel fair PCA algorithm using ei
 
 - The algorithm, **Fair PCA via Eigenvalue Optimization**, is implemented in [`FairPCAviaEigOpt.m`](./FairPCAviaEigOpt.m).
 - Main function: [`main.m`](./main.m).
-- Averae reconstruction loss function: [`rloss.m`](./rloss.m).
+- Average reconstruction loss function: [`rloss.m`](./rloss.m).
 - Examples of synthetic data: [`synthetic_data.m`](./synthetic_data.m) and [`synthetic_data2.m`](./synthetic_data2.m).
 
 ## Datasets
