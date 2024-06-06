@@ -22,7 +22,7 @@ approx_Bpca = B * (coeff * coeff');
 approx_Mpca = M * (coeff * coeff');
 
 % Fair PCA
-U = fpca_Eigenvalue_Optimization(A, B, r, tol);
+U = FairPCAviaEigOpt(A, B, r, tol);
 approx_A = A * (U * U');
 approx_B = B * (U * U');
 approx_M = M * (U * U');
