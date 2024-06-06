@@ -6,7 +6,7 @@ nb = 35;
 A_mean = [0, 0]; 
 B_mean = [0, 0]; 
 cov_matrix1 = [1, 0.8; 0.8, 1]; % Covariance matrix for A
-cov_matrix2 = [0.7,-0.6;-0.6,0.7]; % Covariance matrix for B
+cov_matrix2 = [0.6,-0.6;-0.6,0.6]; % Covariance matrix for B
 r = 1; % Reduce to 1 dimension
 tol = 10^(-8);
 
@@ -22,7 +22,7 @@ approx_Bpca = B * (coeff * coeff');
 approx_Mpca = M * (coeff * coeff');
 
 % Fair PCA
-U = fpca_Eigenvalue_Optimization(A, B, r, tol);
+U = FairPCAviaEigOpt(A, B, r, tol);
 approx_A = A * (U * U');
 approx_B = B * (U * U');
 approx_M = M * (U * U');
