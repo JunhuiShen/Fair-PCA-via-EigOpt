@@ -4,10 +4,10 @@ This section describes the implementation of a novel fair PCA algorithm using ei
 
 ## Algorithm Implementation
 
-- The algorithm, **Fair PCA via Eigenvalue Optimization**, is implemented in [`FairPCAviaEigOpt.m`](./FairPCAviaEigOpt.m).
-- Main function: [`main.m`](./main.m).
-- Average reconstruction loss function: [`rloss.m`](./rloss.m).
-- Examples of synthetic data: [`synthetic_data.m`](./synthetic_data.m) and [`synthetic_data2.m`](./synthetic_data2.m).
+- The algorithm, **Fair PCA via Eigenvalue Optimization**, is implemented in [FairPCAviaEigOpt.m](./FairPCAviaEigOpt.m).
+- Main function: [main.m](./main.m).
+- Average reconstruction loss function: [rloss.m](./rloss.m).
+- Examples of synthetic data: [synthetic_data.m](./synthetic_data.m) and [synthetic_data2.m](./synthetic_data2.m).
 
 ## Datasets
 
@@ -41,7 +41,7 @@ Note: The mean value of every matrix $A$ and $B$ is set to $0$.
 
 ## Reference Paper
 
-The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, [`FairPCAviaLP.m.m`](./FairPCAviaLP.m), is adapted from their code.
+The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, [FairPCAviaLP.m](./FairPCAviaLP.m), is adapted from their code.
 
 You can access the code repository [here](https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file).
 
