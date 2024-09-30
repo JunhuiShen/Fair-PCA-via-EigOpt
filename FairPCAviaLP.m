@@ -1,12 +1,20 @@
-function P_smart = FairPCAviaLP(A,B,d,eta,T)
-    [P_fair,z,P_last,z_last] = mw(A, B, d,eta,T);
-    
+function P_smart = FairPCAviaLP(A, B, d, eta, T)
+    % Perform Fair PCA via Linear Programming
+    % A and B are the data matrices for two groups
+    % % d is the target dimension
+    % eta is the learning rate, T is the number of iterations
+
+    [P_fair, z, P_last, z_last] = mw(A, B, d, eta, T); % Call the MW method
+
+    % Select the better projection matrix based on the loss
     if z < z_last
         P_smart = P_fair;
     else
         P_smart = P_last;
     end
-    P_smart = eye(size(P_smart,1)) - sqrtm(eye(size(P_smart,1))-P_smart);
+    
+    % Adjust the projection matrix
+    P_smart = eye(size(P_smart, 1)) - sqrtm(eye(size(P_smart, 1)) - P_smart);
 
 function [P, z, P_last, z_last] = mw(A, B, d, eta, T)
 
@@ -26,6 +34,7 @@ m_A = size(A,1);
 m_B = size(B,1);
 n = size(A, 2);
 
+% Calculate optimal approximations for A and B
 Ahat = optApprox(A, d);
 alpha = norm(Ahat, 'fro')^2;
 
@@ -40,6 +49,7 @@ w_2 = 0.5;
 
 % P is our answer, so I keep the sum of all P_t along the way
 P = zeros(n);
+
 %just for record at the end to see the progress over iterates
 record = ["iteration" "w_1" "w_2" "loss A" "loss B" "loss A by average" "loss B by average"];
 
@@ -81,11 +91,11 @@ zl_1 = 1/(m_A)*(alpha - sum(sum(covA.*P_last)));
 zl_2 = 1/(m_B)*(beta - sum(sum(covB.*P_last)));
 z_last = max(zl_1,zl_2);
 
-%{
-disp(['MW method is finished. The loss for group A is ',num2str(z_1)])
-disp(['For group B is ',num2str(z_2)])
-disp(record)
-%}
+
+% disp(['MW method is finished. The loss for group A is ',num2str(z_1)])
+% disp(['For group B is ',num2str(z_2)])
+% disp(record)
+
 end
 
 function [P_o, z_1, z_2] = oracle(n, A, m_A, B, m_B, alpha, beta, d, w_1, w_2)
@@ -98,8 +108,6 @@ function [P_o, z_1, z_2] = oracle(n, A, m_A, B, m_B, alpha, beta, d, w_1, w_2)
 % tr(P) <= d
 % 0 <= P <= I
 
-
-
 if size(A) ~= [m_A,n] | size(B) ~= [m_B,n] %wrong size
     error('Input matrix to oracle method has wrong size. Set P, l_1, l_2 to be 0');
     P_o = 0;
@@ -107,6 +115,7 @@ if size(A) ~= [m_A,n] | size(B) ~= [m_B,n] %wrong size
     z_2 = 0;
 end
 
+% Compute covariance matrices
 covA = transpose(A)*A;
 covB = transpose(B)*B;
 
@@ -129,8 +138,7 @@ reVal = norm(Y-Z, 'fro')^2;
 end
 
 function [Mhat] = optApprox(M, d)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+% Compute the optimal approximation of matrix M to rank d
 
 coeff = pca(M, 'NumComponents', d);
 P = coeff * transpose(coeff);

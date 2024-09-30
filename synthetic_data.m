@@ -1,12 +1,12 @@
-clc; close all; clear; rng("default"); warning('off','all'); format long
+clc; close all; clear; rng("default"); warning('off','all');
 
 % Parameters
-na = 35; 
-nb = 35;
+na = 50; % Larger sample size for A
+nb = 20; % Smaller sample size for B
 A_mean = [0, 0]; 
 B_mean = [0, 0]; 
-cov_matrix1 = [1, 0.8; 0.8, 1]; % Covariance matrix for A
-cov_matrix2 = [0.6,-0.6;-0.6,0.6]; % Covariance matrix for B
+cov_matrix1 = [1, 0.5; 0.5, 1.2]; % Covariance matrix for A 
+cov_matrix2 = [1.2, -0.5; -0.5, 1]; % Covariance matrix for B 
 r = 1; % Reduce to 1 dimension
 tol = 10^(-8);
 
@@ -15,66 +15,91 @@ A = mvnrnd(A_mean, cov_matrix1, na);
 B = mvnrnd(B_mean, cov_matrix2, nb);
 M = [A; B];
 
-% Vanilla PCA
-coeff = pca(M, 'NumComponents', r);
-approx_Apca = A * (coeff * coeff');
-approx_Bpca = B * (coeff * coeff');
-approx_Mpca = M * (coeff * coeff');
+% PCA
+coeff = pca(M, "NumComponents", r);
+proj_Apca = A * (coeff * coeff');
+proj_Bpca = B * (coeff * coeff');
 
 % Fair PCA
 U = FairPCAviaEigOpt(A, B, r, tol);
-approx_A = A * (U * U');
-approx_B = B * (U * U');
-approx_M = M * (U * U');
+proj_AFair = A * (U * U');
+proj_BFair = B * (U * U');
 
-% Determine line endpoints for plotting
-approx_Mpca1 = approx_Mpca(:,1);
-approx_Mpca2 = approx_Mpca(:,2);
-[leftmost_approx_Mpca, idx1] = min(approx_Mpca1);
-[rightmost_approx_Mpca, idx2] = max(approx_Mpca1);
-xline1 = [leftmost_approx_Mpca, rightmost_approx_Mpca];
-yline1 = [approx_Mpca2(idx1), approx_Mpca2(idx2)];
+% Set a fixed scaling factor for line length
+line_scale = 3;
 
-approx_M1 = approx_M(:,1);
-approx_M2 = approx_M(:,2);
-[leftmost_approx_M, idx1] = min(approx_M1);
-[rightmost_approx_M, idx2] = max(approx_M1);
-xline2 = [leftmost_approx_M, rightmost_approx_M];
-yline2 = [approx_M2(idx1), approx_M2(idx2)];
+% First figure for (a), (b), (c)
+figure;
 
-% Plotting
-figure
-scatter(A(:,1), A(:,2), 100, 'g', 'o', 'filled');
-hold on 
-scatter(B(:,1), B(:,2), 100, 'c', 's', 'filled');
-plot(approx_Mpca(:,1), approx_Mpca(:,2), 'LineWidth', 2, 'Color', [0.4940 0.1840 0.5560]);
-plot(approx_M(:,1), approx_M(:,2), 'LineWidth', 2, 'Color', 'r');
-hold off
-xlabel('x')
-ylabel('y')
-legend('A', 'B', 'Vanilla PCA', 'Fair PCA')
-title('Comparison between Vanilla PCA and Fair PCA')
+% (a) Scatter plot of original dataset and PCA vector (unchanged)
+subplot(2, 3, 1);
+scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled'); % Scatter plot for group A
+hold on
+scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled'); % Scatter plot for group B
+plot([-line_scale line_scale] * coeff(1,1), [-line_scale line_scale] * coeff(2,1), 'k', 'LineWidth', 1.5); % PCA vector
+xlabel("First attribute"); ylabel("Second attribute");
+legend("A", "B", "PCA");
+title("(a) Dataset and PCA");
+grid on; axis equal;
 
-% Save the figure as an EPS file
+% (b) PCA Projection of Group A (points)
+subplot(2, 3, 2);
+scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled');
+hold on
+scatter(proj_Apca(:,1), proj_Apca(:,2), 100, 'k', '*'); % Projection points for Group A
+xlabel("First attribute"); ylabel("Second attribute");
+legend("A", "Projected A");
+title("(b) PCA projection of A");
+grid on; axis equal;
+
+% (c) PCA Projection of Group B (points)
+subplot(2, 3, 3);
+scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled');
+hold on
+scatter(proj_Bpca(:,1), proj_Bpca(:,2), 100, 'k', '*'); % Projection points for Group B
+xlabel("First attribute"); ylabel("Second attribute");
+legend("B", "Projected B");
+title("(c) PCA projection of B");
+grid on; axis equal;
+
+% Save the first figure as EPS file for (a), (b), (c)
 % print('-depsc2', 'synthetic_data.eps');
 
-% Evaluation
-loss_A = 1 / na * norm(A - approx_Apca, 'fro');
-loss_B = 1 / nb * norm(B - approx_Bpca, 'fro');
+% Second figure for (d), (e), (f)
+figure;
 
-% Vanilla PCA reconstruction loss
-rloss_A = rloss(A, approx_Apca, r);
-rloss_B = rloss(B, approx_Bpca, r);
-rloss_AoverBpca = rloss_A / rloss_B;
+% (d) Scatter plot of original dataset and Fair PCA vector 
+subplot(2, 3, 4);
+scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled');
+hold on
+scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled');
+plot([-line_scale line_scale] * U(1,1), [-line_scale line_scale] * U(2,1), 'k', 'LineWidth', 1.5); % Fair PCA vector
+xlabel("First attribute"); ylabel("Second attribute");
+legend("A", "B", "Fair PCA");
+title("(d) Dataset and Fair PCA");
+grid on; axis equal;
 
-% Reconstruction loss of Fair PCA via eigenvalue optimization
-rlossFair_A = rloss(A, approx_A, r);
-rlossFair_B = rloss(B, approx_B, r);
-rlossFair_AoverB = rlossFair_A / rlossFair_B;
+% (e) Fair PCA Projection of Group A (points)
+subplot(2, 3, 5);
+scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled');
+hold on
+scatter(proj_AFair(:,1), proj_AFair(:,2), 100, 'k', '*'); % Projection points for Group A
+xlabel("First attribute"); ylabel("Second attribute");
+legend("A", "Projected A");
+title("(e) Fair PCA projection of A");
+grid on; axis equal;
 
-% Create the table
-results = table(rloss_A, rloss_B, rloss_AoverBpca, rlossFair_A, rlossFair_B, rlossFair_AoverB, ...
-    'VariableNames', {'rloss_A', 'rloss_B', 'rloss_AoverBpca', 'rlossFair_A', 'rlossFair_B', 'rlossFair_AoverB'});
+% (f) Fair PCA Projection of Group B (points)
+subplot(2, 3, 6);
+scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled');
+hold on
+scatter(proj_BFair(:,1), proj_BFair(:,2), 100, 'k', '*'); % Projection points for Group B
+xlabel("First attribute"); ylabel("Second attribute");
+legend("B", "Projected B");
+title("(f) Fair PCA projection of B");
+grid on; axis equal;
 
-% Display the table
-disp(results);
+% Save the second figure as EPS file for (d), (e), (f)
+% print('-depsc2', 'synthetic_data2.eps');
+
+
