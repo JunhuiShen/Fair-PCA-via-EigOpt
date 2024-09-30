@@ -1,13 +1,13 @@
 # Fair PCA via Eigenvalue Optimization
 
-This section describes the implementation of a novel fair PCA algorithm using eigenvalue optimization.
+This section describes the implementation of a novel fair PCA algorithm using eigenvalue optimization presented in the paper "Fair and Efficient: Hidden Convexity of Fair PCA and  Fast Solution via Eigenvalue Optimization".
 
 ## Algorithm Implementation
 
 - The algorithm, **Fair PCA via Eigenvalue Optimization**, is implemented in [FairPCAviaEigOpt.m](./FairPCAviaEigOpt.m).
 - Main function: [main.m](./main.m).
 - Average reconstruction loss function: [rloss.m](./rloss.m).
-- Examples of synthetic data: [synthetic_data.m](./synthetic_data.m) and [synthetic_data2.m](./synthetic_data2.m).
+- Examples of synthetic data: [synthetic_data.m](./synthetic_data.m).
 
 ## Datasets
 
@@ -37,7 +37,7 @@ Here are the datasets we consider:
   - $B \in \mathbb{R}^{10270 \times 1764}$
   - [Script](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/LFW.m)
 
-Note: The mean value of every matrix $A$ and $B$ is set to $0$.
+Note: The data matrices are all centered. That is, the mean value of every matrix $A$ and $B$ is set to $0$.
 
 ## Reference Paper
 
