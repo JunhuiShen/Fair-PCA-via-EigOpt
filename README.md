@@ -41,7 +41,7 @@ Note: The data matrices are all centered. That is, the mean value of every matri
 
 ## Reference Paper
 
-The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, [FairPCAviaLP.m](./FairPCAviaLP.m), is adapted from their code.
+The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, [FairPCAviaLP.m](./FairPCAviaLP.m), is adapted from their code by integrating all the related functions and set the tolerance condition.
 
 You can access the code repository [here](https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file).
 
