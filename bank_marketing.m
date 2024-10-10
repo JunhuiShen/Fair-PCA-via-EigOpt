@@ -21,7 +21,7 @@ function [M, A, B] = bank_marketing()
     % Get the number of instances (m) and features (n)
     [m, n] = size(data);
 
-    % Center and normalize the dataset
+    % % Center and normalize the dataset
     data = (data - repmat(mean(data), m, 1)) ./ repmat(std(data), m, 1);
 
     % Data for sensitive group (aged >= 65 years)
@@ -35,8 +35,8 @@ function [M, A, B] = bank_marketing()
     data_sensitive = (data_sensitive - repmat(mean(data_sensitive), size(data_sensitive, 1), 1));
 
     % Assign the data to output variables
-    A = data_nonsensitive;
-    B = data_sensitive;
+    A = data_sensitive;
+    B = data_nonsensitive;
     M = [A; B]; % Combined dataset
 
 end

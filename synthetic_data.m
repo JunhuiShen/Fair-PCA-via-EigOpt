@@ -1,13 +1,13 @@
 clc; close all; clear; rng("default"); warning('off','all');
 
 % Parameters
-na = 50; % Larger sample size for A
-nb = 20; % Smaller sample size for B
+na = 50;
+nb = 20;
 A_mean = [0, 0]; 
 B_mean = [0, 0]; 
 cov_matrix1 = [1, 0.5; 0.5, 1.2]; % Covariance matrix for A 
 cov_matrix2 = [1.2, -0.5; -0.5, 1]; % Covariance matrix for B 
-r = 1; % Reduce to 1 dimension
+r = 1; 
 tol = 10^(-8);
 
 % Generate synthetic data
@@ -21,85 +21,90 @@ proj_Apca = A * (coeff * coeff');
 proj_Bpca = B * (coeff * coeff');
 
 % Fair PCA
-U = FairPCAviaEigOpt(A, B, r, tol);
+U = FPCAviaEigOpt(A, B, r, tol);
 proj_AFair = A * (U * U');
 proj_BFair = B * (U * U');
 
 % Set a fixed scaling factor for line length
 line_scale = 3;
 
-% First figure for (a), (b), (c)
 figure;
 
-% (a) Scatter plot of original dataset and PCA vector (unchanged)
+% Scatter plot of original dataset and PCA vector
 subplot(2, 3, 1);
 scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled'); % Scatter plot for group A
 hold on
 scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled'); % Scatter plot for group B
 plot([-line_scale line_scale] * coeff(1,1), [-line_scale line_scale] * coeff(2,1), 'k', 'LineWidth', 1.5); % PCA vector
-xlabel("First attribute"); ylabel("Second attribute");
+xlabel("Feature 1", 'FontSize', 12); ylabel("Feature 2", 'FontSize', 12);
 legend("A", "B", "PCA");
-title("(a) Dataset and PCA");
+title("Dataset and PCA","FontSize",12);
 grid on; axis equal;
+% Get axis limits for PCA plots
+x_limits_PCA = xlim;
+y_limits_PCA = ylim;
 
-% (b) PCA Projection of Group A (points)
+% PCA Projection of Group A
 subplot(2, 3, 2);
 scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled');
 hold on
 scatter(proj_Apca(:,1), proj_Apca(:,2), 100, 'k', '*'); % Projection points for Group A
-xlabel("First attribute"); ylabel("Second attribute");
+xlabel("Feature 1", 'FontSize', 12); ylabel("Feature 2", 'FontSize', 12);
 legend("A", "Projected A");
-title("(b) PCA projection of A");
+title("PCA Projection of A","FontSize",12);
 grid on; axis equal;
+% Use the same axis limits as subplot 1
+xlim(x_limits_PCA); ylim(y_limits_PCA);
 
-% (c) PCA Projection of Group B (points)
+% PCA Projection of Group B 
 subplot(2, 3, 3);
 scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled');
 hold on
 scatter(proj_Bpca(:,1), proj_Bpca(:,2), 100, 'k', '*'); % Projection points for Group B
-xlabel("First attribute"); ylabel("Second attribute");
+xlabel("Feature 1", 'FontSize', 12); ylabel("Feature 2", 'FontSize', 12);
 legend("B", "Projected B");
-title("(c) PCA projection of B");
+title("PCA Projection of B","FontSize",12);
 grid on; axis equal;
+% Use the same axis limits as subplot 1
+xlim(x_limits_PCA); ylim(y_limits_PCA);
+% print("synthetic_data",'-depsc2');
 
-% Save the first figure as EPS file for (a), (b), (c)
-% print('-depsc2', 'synthetic_data.eps');
-
-% Second figure for (d), (e), (f)
-figure;
-
-% (d) Scatter plot of original dataset and Fair PCA vector 
+% figure;
+% Dataset and Fair PCA vector 
 subplot(2, 3, 4);
 scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled');
 hold on
 scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled');
 plot([-line_scale line_scale] * U(1,1), [-line_scale line_scale] * U(2,1), 'k', 'LineWidth', 1.5); % Fair PCA vector
-xlabel("First attribute"); ylabel("Second attribute");
-legend("A", "B", "Fair PCA");
-title("(d) Dataset and Fair PCA");
+xlabel("Feature 1", 'FontSize', 12); ylabel("Feature 2", 'FontSize', 12);
+legend("A", "B", "FPCA");
+title("Dataset and FPCA","FontSize",12);
 grid on; axis equal;
+% Get axis limits for FPCA plots
+x_limits_FPCA = xlim;
+y_limits_FPCA = ylim;
 
-% (e) Fair PCA Projection of Group A (points)
+% Fair PCA Projection of Group A 
 subplot(2, 3, 5);
 scatter(A(:,1), A(:,2), 100, [0.9290 0.6940 0.1250], 'filled');
 hold on
 scatter(proj_AFair(:,1), proj_AFair(:,2), 100, 'k', '*'); % Projection points for Group A
-xlabel("First attribute"); ylabel("Second attribute");
+xlabel("Feature 1", 'FontSize', 12); ylabel("Feature 2", 'FontSize', 12);
 legend("A", "Projected A");
-title("(e) Fair PCA projection of A");
+title("FPCA Projection of A","FontSize",12);
 grid on; axis equal;
+% Use the same axis limits as subplot 4
+xlim(x_limits_FPCA); ylim(y_limits_FPCA);
 
-% (f) Fair PCA Projection of Group B (points)
+% Fair PCA Projection of Group B 
 subplot(2, 3, 6);
 scatter(B(:,1), B(:,2), 100, [0 0.4470 0.7410], 'filled');
 hold on
 scatter(proj_BFair(:,1), proj_BFair(:,2), 100, 'k', '*'); % Projection points for Group B
-xlabel("First attribute"); ylabel("Second attribute");
+xlabel("Feature 1", 'FontSize', 12); ylabel("Feature 2", 'FontSize', 12);
 legend("B", "Projected B");
-title("(f) Fair PCA projection of B");
+title("FPCA Projection of B","FontSize",12);
 grid on; axis equal;
-
-% Save the second figure as EPS file for (d), (e), (f)
-% print('-depsc2', 'synthetic_data2.eps');
-
-
+% Use the same axis limits as subplot 4
+xlim(x_limits_FPCA); ylim(y_limits_FPCA);
+% print("synthetic_data2",'-depsc2');
