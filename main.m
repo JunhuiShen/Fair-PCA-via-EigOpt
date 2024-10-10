@@ -1,5 +1,4 @@
-clc; close all; clear; rng("default"); warning("off","all"); 
-format long
+clc; close all; clear; rng("default"); warning("off","all");1
 
 % Data set
 [M, A, B] = bank_marketing(); % Load the Bank Marketing dataset
@@ -11,8 +10,8 @@ format long
 % ensure it is placed inside the "images" folder and then rerun the script.
 
 % Set the desired reduced dimensions range
-r_start = 7;
-r_end = 7;
+r_start = 1;
+r_end = 10;
 
 % Total dimensions
 r_total = r_end - r_start + 1;
@@ -157,4 +156,3 @@ disp(T1)
 T2 = table(r_count, abs(1-rloss_A./rloss_B), abs(1 - rlossFair_A ./ rlossFair_B), abs(1 - rloss_A_SDR ./ rloss_B_SDR), ...
     'VariableNames', {'r', 'Rloss_err_PCA', 'LossRatio_err_EigOpt', 'LossRatio_err_SDR'});
 disp(T2)
-
