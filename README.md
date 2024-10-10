@@ -1,6 +1,6 @@
 # Fair PCA via Eigenvalue Optimization
 
-This repository contains the implementation of the Fair PCA algorithm using eigenvalue optimization, as presented in the paper _"Fair and Efficient: Hidden Convexity of Fair PCA and Fast Solution via Eigenvalue Optimization."_ This work was conducted by Junhui Shen (University of California, Davis), Aaron Davis (University of Kentucky), Ding Lu (University of Kentucky), and Zhaojun Bai (University of California, Davis).
+This repository contains the implementation of the Fair PCA algorithm using Eigenvalue Optimization, as presented in the paper _"Fair and Efficient: Hidden Convexity of Fair PCA and Fast Solution via Eigenvalue Optimization."_ This work was conducted by Junhui Shen (University of California, Davis), Aaron Davis (University of Kentucky), Ding Lu (University of Kentucky), and Zhaojun Bai (University of California, Davis).
 
 ## Algorithm Implementation
 
