@@ -48,61 +48,6 @@ function U = FPCAviaEigOpt(A, B, r, tol)
 
     % Compute the first r eigenvectors of H(t_star)
     [U, ~] = eigs(H(t_star), r, 'smallestreal');
-    
-    % % Helper function to capture Brent's method iterates
-    % function stop = outfun(t, optimValues, state)
-    %     stop = false;
-    %     if isequal(state, 'iter')
-    %         t_vals = [t_vals, t]; % Store t values at each iteration
-    %     end
-    % end
-    % 
-    % % Plot phi(t) and mark the iterates t*
-    % figure;
-    % 
-    % % Main plot of phi(t) over [0, 1]
-    % fplot(phiFun, [0, 1], 'LineWidth', 1.5);
-    % hold on;
-    % 
-    % % Evaluate phi(t) at each iterate t*
-    % phi_vals = arrayfun(phiFun, t_vals); 
-    % plot(t_vals, phi_vals, 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
-    % 
-    % % Annotate iterates with numbers
-    % for i = 1:length(t_vals)
-    %     text(t_vals(i), phi_vals(i) + 0.02, sprintf('%d', i), 'FontSize', 8, 'FontWeight', 'bold', ...
-    %          'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'center', 'Color', 'black');
-    % end
-    % 
-    % % Labels and legend
-    % xlabel("t");
-    % ylabel("");
-    % legend('\phi(t)', 'Iterates t*', 'Location', 'best');
-    % grid on;
-    % 
-    % % Create zoomed-in inset (subplot)
-    % ax2 = axes('Position', [0.4, 0.2, 0.25, 0.25]); % Adjusted inset position
-    % box on;
-    % 
-    % % Zoom into the middle iterates (adjust x and y limits based on t_vals range)
-    % middle_idx = floor(length(t_vals) / 2);
-    % t_range = [t_vals(middle_idx) - 0.1, t_vals(middle_idx) + 0.1];
-    % 
-    % % Plot phi(t) in zoomed-in region
-    % fplot(ax2, phiFun, t_range, 'LineWidth', 1.5);
-    % hold on;
-    % 
-    % % Plot the iterates in the zoomed-in region
-    % plot(ax2, t_vals, phi_vals, 'ro', 'MarkerSize', 8, 'MarkerFaceColor', 'r');
-    % 
-    % % Set x and y limits for the zoomed plot
-    % set(ax2, 'XLim', t_range, 'YLim', [min(phi_vals) - 0.01, max(phi_vals) + 0.01]);
-    % 
-    % % Labels for zoomed-in subplot (remove ylabel)
-    % xlabel(ax2, 'Iterate t_*');
-    % ylabel(ax2, '');
-    % 
-    % hold off;
 
     
     % % Plot phi(t) and mark the iterates t*
