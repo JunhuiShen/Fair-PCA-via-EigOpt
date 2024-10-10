@@ -1,49 +1,55 @@
 # Fair PCA via Eigenvalue Optimization
 
-This section describes the implementation of a novel fair PCA algorithm using eigenvalue optimization presented in the paper "Fair and Efficient: Hidden Convexity of Fair PCA and  Fast Solution via Eigenvalue Optimization".
+This repository contains the implementation of the Fair PCA algorithm using eigenvalue optimization, as presented in the paper _"Fair and Efficient: Hidden Convexity of Fair PCA and Fast Solution via Eigenvalue Optimization."_ This work was conducted by Junhui Shen (University of California, Davis), Aaron Davis (University of Kentucky), Ding Lu (University of Kentucky), and Zhaojun Bai (University of California, Davis).
 
 ## Algorithm Implementation
 
-- The algorithm, **Fair PCA via Eigenvalue Optimization**, is implemented in [FairPCAviaEigOpt.m](./FairPCAviaEigOpt.m).
-- Main function: [main.m](./main.m).
-- Average reconstruction loss function: [rloss.m](./rloss.m).
-- Examples of synthetic data: [synthetic_data.m](./synthetic_data.m).
+The Fair PCA via Eigenvalue Optimization (**FPCA via EigOpt**) algorithm is implemented and can be found in the following files:
+
+- **FPCA via EigOpt**: [`FPCAviaEigOpt.m`](./FPCAviaEigOpt.m)
+- **Comparison of FPCA via EigOpt and FPCA via SDP**: [`main.m`](./main.m)
+- **Comparison of FPCA via EigOpt and c-FPCA**: [`main2.m`](./main2.m)
+- **Average Reconstruction Loss Function**: [`rloss.m`](./rloss.m)
+- **Example of Synthetic Data**: [`synthetic_data.m`](./synthetic_data.m)
 
 ## Datasets
 
-Here are the datasets we consider:
+The following datasets are used in the experiments:
 
-- [Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing): 
+- **[Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)**:
   - $M \in \mathbb{R}^{45211 \times 16}$
   - $A \in \mathbb{R}^{44401 \times 16}$
   - $B \in \mathbb{R}^{810 \times 16}$
-  - [Script](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/bank_marketing.m)
+  - Dataset script: [`bank_marketing.m`](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/bank_marketing.m)
 
-- [Crop Mapping](https://archive.ics.uci.edu/dataset/525/crop+mapping+using+fused+optical+radar+data+set):
+- **[Crop Mapping](https://archive.ics.uci.edu/dataset/525/crop+mapping+using+fused+optical+radar+data+set)**:
   - $M \in \mathbb{R}^{325834 \times 173}$
   - $A \in \mathbb{R}^{39162 \times 173}$
   - $B \in \mathbb{R}^{286672 \times 173}$
-  - [Script](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/crop_mapping.m)
+  - Dataset script: [`crop_mapping.m`](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/crop_mapping.m)
 
-- [Default of Credit Card Clients](https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients):
+- **[Default of Credit Card Clients](https://archive.ics.uci.edu/dataset/350/default+of+credit+card+clients)**:
   - $M \in \mathbb{R}^{30000 \times 23}$
   - $A \in \mathbb{R}^{10599 \times 23}$
   - $B \in \mathbb{R}^{19401 \times 23}$
-  - [Script](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/default_credit.m)
+  - Dataset script: [`default_credit.m`](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/default_credit.m)
 
-- [Labeled Faces in the Wild](https://vis-www.cs.umass.edu/lfw/):
+- **[Labeled Faces in the Wild](https://vis-www.cs.umass.edu/lfw/)**:
   - $M \in \mathbb{R}^{13232 \times 1764}$
   - $A \in \mathbb{R}^{2962 \times 1764}$
   - $B \in \mathbb{R}^{10270 \times 1764}$
-  - [Script](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/LFW.m)
+  - Dataset script: [`LFW.m`](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/LFW.m)
 
-Note: The data matrices are all centered. That is, the mean value of every matrix $A$ and $B$ is set to $0$.
+Note: All data matrices are centered, meaning the mean of each matrix $A$ and $B$ is set to 0.
 
 ## Reference Paper
 
-The code for the Fair PCA via LP algorithm is introduced in the paper "[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)" by Samadi S., Tantipongpipat U., Morgenstern J., Singh M., and Vempala S., NeurIPS, 2018. Our implementation, [FairPCAviaLP.m](./FairPCAviaLP.m), is adapted from their code by integrating all the related functions and set the tolerance condition.
+The **Fair PCA via SDP** algorithm is based on the paper _"[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)"_ by Samadi et al., presented at NeurIPS 2018. The implementation [`FairPCAviaSDR.m`](./FairPCAviaSDR.m) is adapted from their code, with all related functions integrated.
+
+The **c-FPCA** algorithm is introduced in the paper _"[A novel approach for Fair Principal Component Analysis based on eigendecomposition](https://arxiv.org/abs/1811.00103)"_ by Pelegrina and Duarte. The implementation [`c-FPCA.m`](./c-FPCA.m) is adapted from their code for constrained Fair PCA.
 
 You can access the code repository [here](https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file).
+
 
 ## Data Folder
 
