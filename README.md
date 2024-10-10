@@ -44,12 +44,9 @@ Note: All data matrices are centered, meaning the mean of each matrix $A$ and $B
 
 ## Reference Paper
 
-The **Fair PCA via SDP** algorithm is based on the paper _"[The Price of Fair PCA: One Extra Dimension](https://papers.nips.cc/paper_files/paper/2018/hash/cc4af25fa9d2d5c953496579b75f6f6c-Abstract.html)"_ by Samadi et al., presented at NeurIPS 2018. The implementation [`FPCAviaSDR.m`](./FPCAviaSDR.m) is adapted from their code, with all related functions integrated.
+The **Fair PCA via SDP** algorithm is based on the paper _"[The Price of Fair PCA: One Extra Dimension](https://papers.nips.cc/paper_files/paper/2018/hash/cc4af25fa9d2d5c953496579b75f6f6c-Abstract.html)"_ by Samadi et al., presented at NeurIPS 2018. The implementation [`FPCAviaSDR.m`](./FPCAviaSDR.m) is adapted from their code, with all related functions integrated. You can access their code repository [here](https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file).
 
-The **c-FPCA** algorithm is introduced in the paper _"[A novel approach for Fair Principal Component Analysis based on eigendecomposition](https://ieeexplore.ieee.org/document/10192331)"_ by Pelegrina and Duarte. The implementation [`c_FPCA.m`](./c_FPCA.m) is adapted from their code for constrained Fair PCA.
-
-You can access the code repository [here](https://github.com/samirasamadi/Fair-PCA?tab=readme-ov-file).
-
+The **c-FPCA** algorithm is introduced in the paper _"[A novel approach for Fair Principal Component Analysis based on eigendecomposition](https://ieeexplore.ieee.org/document/10192331)"_ by Pelegrina and Duarte. The implementation [`c_FPCA.m`](./c_FPCA.m) is adapted from their code for constrained Fair PCA. You can access their code repository [here](https://github.com/GuilhermePelegrina/FPCA).
 
 ## Data Folder
 
