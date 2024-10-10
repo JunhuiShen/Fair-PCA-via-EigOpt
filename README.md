@@ -44,7 +44,7 @@ Note: All data matrices are centered, meaning the mean of each matrix $A$ and $B
 
 ## Reference Paper
 
-The **Fair PCA via SDP** algorithm is based on the paper _"[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)"_ by Samadi et al., presented at NeurIPS 2018. The implementation [`FairPCAviaSDR.m`](./FairPCAviaSDR.m) is adapted from their code, with all related functions integrated.
+The **Fair PCA via SDP** algorithm is based on the paper _"[The Price of Fair PCA: One Extra Dimension](https://arxiv.org/abs/1811.00103)"_ by Samadi et al., presented at NeurIPS 2018. The implementation [`FPCAviaSDR.m`](./FPCAviaSDR.m) is adapted from their code, with all related functions integrated.
 
 The **c-FPCA** algorithm is introduced in the paper _"[A novel approach for Fair Principal Component Analysis based on eigendecomposition](https://arxiv.org/abs/1811.00103)"_ by Pelegrina and Duarte. The implementation [`c-FPCA.m`](./c-FPCA.m) is adapted from their code for constrained Fair PCA.
 
