@@ -64,6 +64,7 @@ for idx = 1:r_total
     approxFair_A_CFPCA = A * P_CFPCA;
     approxFair_B_CFPCA = B * P_CFPCA;
 
+
     % Runtime ratio between FPCAviaEigOpt and CFPCA
     time_ratio1(idx) = time_Fair(idx) / time_pca(idx);
     time_ratio2(idx) = time_CFPCA(idx) / time_Fair(idx);
@@ -72,10 +73,6 @@ end
 
 % Reduced dimension count
 r_count = (r_start:r_end)';
-
-T = table(r_count, rlossFair_A./rlossFair_A, rloss_A_CFPCA./rloss_B_CFPCA,...
-    'VariableNames', {'r', 'FPCAviaEigOpt_Ratio', 'CFPCA_Ratio'});
-disp(T)
 
 T = table(r_count, time_pca, time_Fair, time_CFPCA, time_ratio1, time_ratio2,...
     'VariableNames', {'r', 'PCA', 'FPCAviaEigOpt', 'CFPCA', 'Time_Ratio1','Time_Ratio2'});
