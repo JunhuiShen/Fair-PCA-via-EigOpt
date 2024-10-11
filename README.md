@@ -21,8 +21,8 @@ The following datasets are used in the experiments:
 
 - **[Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)**:
   - $M \in \mathbb{R}^{45211 \times 16}$
-  - $A \in \mathbb{R}^{44401 \times 16}$
-  - $B \in \mathbb{R}^{810 \times 16}$
+  - $A \in \mathbb{R}^{810 \times 16}$
+  - $B \in \mathbb{R}^{44401 \times 16}$
   - Dataset script: [`bank_marketing.m`](https://github.com/JunhuiShen/Fair-PCA-Eigenvalue-Optimization/blob/main/bank_marketing.m)
 
 - **[Crop Mapping](https://archive.ics.uci.edu/dataset/525/crop+mapping+using+fused+optical+radar+data+set)**:
