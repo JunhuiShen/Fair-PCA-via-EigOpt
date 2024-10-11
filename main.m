@@ -36,13 +36,13 @@ rloss_B_SDR = zeros(r_total, 1);
 
 % Parameters
 tol = 1e-8; % Tolerance for optimization
-eta = 1; % Parameter for Fair PCA via LP
-T = 10; % Number of iterations for Fair PCA via LP
+eta = 1; % Parameter for Fair PCA via SDR
+T = 10; % Number of iterations for Fair PCA via SDR
 
 % Initialize runtime arrays
 time_pca = zeros(r_total, 1);
 time_Fair = zeros(r_total, 1);
-time_FairLP = zeros(r_total, 1);
+time_FairSDR = zeros(r_total, 1);
 time_ratio1 = zeros(r_total, 1);
 time_ratio2 = zeros(r_total, 1);
 
@@ -85,7 +85,7 @@ for idx = 1:r_total
     % FPCAviaSDR
     tic;
     P_SDR = FPCAviaSDR(A, B, r, eta, T); % Perform FPCAviaSDR
-    time_FairLP(idx) = toc;
+    time_FairSDR(idx) = toc;
 
     % Projection of FPCAviaSDR
     approxFair_M_SDR = M * P_SDR;
@@ -98,7 +98,7 @@ for idx = 1:r_total
 
     % Runtime ratio between FPCAviaEigOpt and FPCAviaSDR
     time_ratio1(idx) = time_Fair(idx) / time_pca(idx);
-    time_ratio2(idx) = time_FairLP(idx) / time_Fair(idx);
+    time_ratio2(idx) = time_FairSDR(idx) / time_Fair(idx);
 end
 
 % Reduced dimension count
@@ -148,7 +148,7 @@ ylabel("Loss",'FontSize', 30)
 grid on
 
 % Runtime table
-T1 = table(r_count, time_pca, time_Fair, time_FairLP, time_ratio1, time_ratio2,...
+T1 = table(r_count, time_pca, time_Fair, time_FairSDR, time_ratio1, time_ratio2,...
     'VariableNames', {'r', 'PCA', 'FPCAviaEigOpt', 'FPCAviaSDR', 'Time_Ratio1','Time_Ratio2'});
 disp(T1)
 
