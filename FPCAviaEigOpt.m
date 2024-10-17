@@ -15,13 +15,7 @@ function U = FPCAviaEigOpt(A, B, r, tol)
     na = size(A, 1); % Number of samples (rows) in A
     nb = size(B, 1); % Number of samples (rows) in B
     
-    % % Compute the singular values of A and B 
-
-    % (a) no-tolerance version
-    % sigval_a = svd(A);
-    % sigval_b = svd(B);
-
-    % (b) with-tolerance version
+    % Compute the singular values of A and B 
     [~, sa, ~] = svds(A, d, "largest", 'Tolerance', tol);
     sigval_a = diag(sa); % Singular values of A
 
@@ -49,11 +43,8 @@ function U = FPCAviaEigOpt(A, B, r, tol)
     % Compute the first r eigenvectors of H(t_star)
     [U, ~] = eigs(H(t_star), r, 'smallestreal');
 
-    
-    % % Plot phi(t) and mark the iterates t*
+    % % Plot of phi(t)
     % figure;
-    % 
-    % % Main plot of phi(t) over [-0.2, 1.2]
     % fplot(phiFun, [-0.2, 1.2], 'LineWidth', 5);
     % 
     % % Set x-axis limits from -0.2 to 1.2
