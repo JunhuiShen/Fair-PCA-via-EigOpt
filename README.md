@@ -4,11 +4,11 @@ This repository contains the implementation of the Fair PCA via EigOpt algorithm
 
 ## Algorithm Implementation
 
-The Fair PCA via Eigenvalue Optimization (**FPCA via EigOpt**) algorithm is implemented in the following files:
+The Fair PCA via Eigenvalue Optimization (**Fair PCA via EigOpt**) algorithm is implemented in the following files:
 
-- **FPCA via EigOpt**: [`FPCAviaEigOpt.m`](./FPCAviaEigOpt.m)
-- **Comparison of FPCA via EigOpt with FPCA via SDP**: [`main.m`](./main.m)
-- **Comparison of FPCA via EigOpt with u-FPCA and c-FPCA**: [`main2.m`](./main2.m)
+- **Fair PCA via EigOpt**: [`FPCAviaEigOpt.m`](./FPCAviaEigOpt.m)
+- **Comparison of Fair PCA via EigOpt with Fair PCA via SDP**: [`main.m`](./main.m)
+- **Comparison of Fair PCA via EigOpt with u-FPCA and c-FPCA**: [`main2.m`](./main2.m)
 - **Example of Synthetic Data**: [`synthetic_data.m`](./synthetic_data.m)
 - **Average Reconstruction Loss Function**: [`rloss.m`](./rloss.m)
 - **Reconstruction Error Function**: [`error1.m`](./error1.m)
