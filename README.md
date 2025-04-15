@@ -2,7 +2,7 @@
 
 This repository contains the implementation of the **Fair PCA via EigOpt** algorithm and relevant numerical experiments, as presented in the paper 
 _"[Hidden Convexity of Fair PCA and Fast Solver via Eigenvalue Optimization](https://arxiv.org/abs/2503.00299)"_ authored by 
-Junhui Shen (University of California, Davis), Aaron Davis (University of Kentucky), Ding Lu (University of Kentucky), and Zhaojun Bai (University of California, Davis)*  
+Junhui Shen (University of California, Davis), Aaron Davis (University of Kentucky), Ding Lu (University of Kentucky), and Zhaojun Bai (University of California, Davis)
 
 
 ## Algorithm Implementation
